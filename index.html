@@ -1,238 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Judgements and Evidence</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 2rem;
-            min-height: 100vh;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Judgements</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .survey-container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    details {
+      border: 1px solid #ccc;
+      margin: 20px 0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    summary {
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #e9ecef;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sub-question {
+      margin: 12px 0;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 6px;
+    }
+    .sub-question.not-met {
+      background-color: #f8d7da !important; /* light red for not met */
+    }
+    .sub-question label {
+      flex: 1;
+    }
+    select {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 14px;
+    }
+    textarea {
+      width: 98%;
+      padding: 6px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 60px;
+      margin-top: 6px;
+      transition: background-color 0.3s ease;
+    }
+    textarea.not-met {
+      background-color: #f8d7da !important;
+    }
+    .sensitive-evidence-container {
+      margin: 10px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sensitive-evidence-container label {
+      font-weight: normal;
+    }
+    .sensitive-evidence {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .sensitive-evidence[readonly] {
+      background: #eee;
+    }
+    .edit-btn {
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .submit-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #45a049;
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
- 
-    <div class="container mx-auto p-4 md:p-8">
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <h1 class="text-xl md:text-2xl font-semibold p-4 md:p-6 bg-gray-50 border-b border-gray-200">Judgements and Evidence (v2)</h1>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Outcome</th>
-                            <th scope="col" class="px-6 py-3">Outcome</th>
-                            <th scope="col" class="px-6 py-3">Exception standards</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">
-                                Judgement \ Evidence for Principle 1: Governance
-                            </th>
-                            <td class="px-6 py-4">
-                                <select class="block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                    <option>Standard met</option>
-                                    <option>Standard not met</option>
-                                </select>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">
-                                Judgement \ Evidence for Principle 2: Staff
-                            </th>
-                            <td class="px-6 py-4">
-                                <select class="block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                    <option>Standard met</option>
-                                    <option>Standard not met</option>
-                                </select>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">
-                                Judgement \ Evidence for Principle 3: Premises
-                            </th>
-                            <td class="px-6 py-4">
-                                <select class="block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                    <option>Standard met</option>
-                                    <option>Standard not met</option>
-                                </select>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">
-                                Judgement \ Evidence for Principle 4: Services
-                            </th>
-                            <td class="px-6 py-4">
-                                <select class="block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                    <option>Standard met</option>
-                                    <option>Standard not met</option>
-                                </select>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                         <tr class="bg-white border-b hover:bg-gray-50">
-                            <th scope="row" class="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">
-                                Judgement \ Evidence for Principle 5: Equipment and facilities
-                            </th>
-                            <td class="px-6 py-4">
-                                <select class="block w-full text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                    <option>Standard met</option>
-                                    <option>Standard not met</option>
-                                </select>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-medium text-gray-500 mb-1">XYZ</p>
-                                        <select class="block text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2">
-                                            <option>Standard not inspected</option>
-                                            <option>Standard met</option>
-                                            <option>Standard not met</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<body>
+  <div class="survey-container">
+    <h3>Judgements and Evidence</h3>
+    <form>
+      <!-- Question 1 -->
+      <details open>
+        <summary>
+          1. Governance
+          <div class="summary-right">
+            <select class="summary-status" onchange="handleSummaryStatusChange(this)">
+              <option value="Standard met">Standard met</option>
+              <option value="Standard not met">Standard not met</option>
+            </select>
+            <input type="checkbox" id="chk1" onclick="handleCheckboxClick(this)">
+            <label for="chk1">Standards not inspected</label>
+          </div>
+        </summary>
+        <div class="sensitive-evidence-container">
+         
+          <input type="text" id="sensitive1" class="sensitive-evidence" placeholder="Sensitive Evidence...">
+          <button type="button" class="edit-btn" onclick="toggleEdit(this)" title="Edit sensitive evidence">✏️</button>
         </div>
-    </div>
- 
+        <div class="sub-question">
+          <label for="q1s1">Standard 1.1:</label>
+          <select id="q1s1" name="q1s1" onchange="handleSubQuestionChange(this)">
+            <option>Standard not met</option>
+            <option>Standard met</option>
+            <option>Area for improvement</option>
+            <option>Good practice</option>
+            <option>Excellent practice</option>
+            <option>Standard not inspected</option>
+          </select>
+        </div>
+        <textarea id="q1s1_reason" name="q1s1_reason" placeholder="Reason..."></textarea>
+
+        <div class="sub-question">
+          <label for="q1s2">Standard 1.2:</label>
+          <select id="q1s2" name="q1s2" onchange="handleSubQuestionChange(this)">
+            <option>Standard not met</option>
+            <option>Standard met</option>
+            <option>Area for improvement</option>
+            <option>Good practice</option>
+            <option>Excellent practice</option>
+            <option>Standard not inspected</option>
+          </select>
+        </div>
+        <textarea id="q1s2_reason" name="q1s2_reason" placeholder="Reason..."></textarea>
+
+        <div class="sub-question">
+          <label for="q1s3">Standard 1.3:</label>
+          <select id="q1s3" name="q1s3" onchange="handleSubQuestionChange(this)">
+            <option>Standard not met</option>
+            <option>Standard met</option>
+            <option>Area for improvement</option>
+            <option>Good practice</option>
+            <option>Excellent practice</option>
+            <option>Standard not inspected</option>
+          </select>
+        </div>
+        <textarea id="q1s3_reason" name="q1s3_reason" placeholder="Reason..."></textarea>
+
+        <div class="sub-question">
+          <label for="q1s4">Standard 1.4:</label>
+          <select id="q1s4" name="q1s4" onchange="handleSubQuestionChange(this)">
+            <option>Standard not met</option>
+            <option>Standard met</option>
+            <option>Area for improvement</option>
+            <option>Good practice</option>
+            <option>Excellent practice</option>
+            <option>Standard not inspected</option>
+          </select>
+        </div>
+        <textarea id="q1s4_reason" name="q1s4_reason" placeholder="Reason..."></textarea>
+
+        <div class="sub-question">
+          <label for="q1s5">Standard 1.5:</label>
+          <select id="q1s5" name="q1s5" onchange="handleSubQuestionChange(this)">
+            <option>Standard not met</option>
+            <option>Standard met</option>
+            <option>Area for improvement</option>
+            <option>Good practice</option>
+            <option>Excellent practice</option>
+            <option>Standard not inspected</option>
+          </select>
+        </div>
+        <textarea id="q1s5_reason" name="q1s5_reason" placeholder="Reason..."></textarea>
+      </details>
+
+      <!-- Question 2 -->
+      <details>
+        <summary>
+          2. Staff
+          <div class="summary-right">
+            <select class="summary-status" onchange="handleSummaryStatusChange(this)">
+              <option value="Standard met">Standard met</option>
+              <option value="Standard not met">Standard not met</option>
+            </select>
+            <input type="checkbox" id="chk2" onclick="handleCheckboxClick(this)">
+            <label for="chk2">Standards not inspected</label>
+          </div>
+        </summary>
+        <div class="sensitive-evidence-container">
+          
+          <input type="text" id="sensitive2" class="sensitive-evidence" placeholder="Sensitive Evidence...">
+          <button type="button" class="edit-btn" onclick="toggleEdit(this)" title="Edit sensitive evidence">✏️</button>
+        </div>
+        <div class="sub-question"><label for="q2s1">Standard 2.1:</label><select id="q2s1" name="q2s1" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q2s1_reason" name="q2s1_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q2s2">Standard 2.2:</label><select id="q2s2" name="q2s2" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q2s2_reason" name="q2s2_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q2s3">Standard 2.3:</label><select id="q2s3" name="q2s3" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q2s3_reason" name="q2s3_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q2s4">Standard 2.4:</label><select id="q2s4" name="q2s4" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q2s4_reason" name="q2s4_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q2s5">Standard 2.5:</label><select id="q2s5" name="q2s5" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q2s5_reason" name="q2s5_reason" placeholder="Reason..."></textarea>
+      </details>
+
+      <!-- Question 3 -->
+      <details>
+        <summary>
+          3. Premises
+          <div class="summary-right">
+            <select class="summary-status" onchange="handleSummaryStatusChange(this)">
+              <option value="Standard met">Standard met</option>
+              <option value="Standard not met">Standard not met</option>
+            </select>
+            <input type="checkbox" id="chk3" onclick="handleCheckboxClick(this)">
+            <label for="chk3">Standards not inspected</label>
+          </div>
+        </summary>
+        <div class="sensitive-evidence-container">
+          
+          <input type="text" id="sensitive3" class="sensitive-evidence" placeholder="Sensitive Evidence...">
+          <button type="button" class="edit-btn" onclick="toggleEdit(this)" title="Edit sensitive evidence">✏️</button>
+        </div>
+        <div class="sub-question"><label for="q3s1">Standard 3.1:</label><select id="q3s1" name="q3s1" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q3s1_reason" name="q3s1_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q3s2">Standard 3.2:</label><select id="q3s2" name="q3s2" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q3s2_reason" name="q3s2_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q3s3">Standard 3.3:</label><select id="q3s3" name="q3s3" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q3s3_reason" name="q3s3_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q3s4">Standard 3.4:</label><select id="q3s4" name="q3s4" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q3s4_reason" name="q3s4_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q3s5">Standard 3.5:</label><select id="q3s5" name="q3s5" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q3s5_reason" name="q3s5_reason" placeholder="Reason..."></textarea>
+      </details>
+
+      <!-- Question 4 -->
+      <details>
+        <summary>
+          4. Services, including medicines management
+          <div class="summary-right">
+            <select class="summary-status" onchange="handleSummaryStatusChange(this)">
+              <option value="Standard met">Standard met</option>
+              <option value="Standard not met">Standard not met</option>
+            </select>
+            <input type="checkbox" id="chk4" onclick="handleCheckboxClick(this)">
+            <label for="chk4">Standards not inspected</label>
+          </div>
+        </summary>
+        <div class="sensitive-evidence-container">
+          
+          <input type="text" id="sensitive4" class="sensitive-evidence" placeholder="Sensitive Evidence...">
+          <button type="button" class="edit-btn" onclick="toggleEdit(this)" title="Edit sensitive evidence">✏️</button>
+        </div>
+        <div class="sub-question"><label for="q4s1">Standard 4.1:</label><select id="q4s1" name="q4s1" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q4s1_reason" name="q4s1_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q4s2">Standard 4.2:</label><select id="q4s2" name="q4s2" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q4s2_reason" name="q4s2_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q4s3">Standard 4.3:</label><select id="q4s3" name="q4s3" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q4s3_reason" name="q4s3_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q4s4">Standard 4.4:</label><select id="q4s4" name="q4s4" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q4s4_reason" name="q4s4_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q4s5">Standard 4.5:</label><select id="q4s5" name="q4s5" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q4s5_reason" name="q4s5_reason" placeholder="Reason..."></textarea>
+      </details>
+
+      <!-- Question 5 -->
+      <details>
+        <summary>
+          5. Equipment and facilities
+          <div class="summary-right">
+            <select class="summary-status" onchange="handleSummaryStatusChange(this)">
+              <option value="Standard met">Standard met</option>
+              <option value="Standard not met">Standard not met</option>
+            </select>
+            <input type="checkbox" id="chk5" onclick="handleCheckboxClick(this)">
+            <label for="chk5">Standards not inspected</label>
+          </div>
+        </summary>
+        <div class="sensitive-evidence-container">
+          
+          <input type="text" id="sensitive5" class="sensitive-evidence" placeholder="Sensitive Evidence...">
+          <button type="button" class="edit-btn" onclick="toggleEdit(this)" title="Edit sensitive evidence">✏️</button>
+        </div>
+        <div class="sub-question"><label for="q5s1">Standard 5.1:</label><select id="q5s1" name="q5s1" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q5s1_reason" name="q5s1_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q5s2">Standard 5.2:</label><select id="q5s2" name="q5s2" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q5s2_reason" name="q5s2_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q5s3">Standard 5.3:</label><select id="q5s3" name="q5s3" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q5s3_reason" name="q5s3_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q5s4">Standard 5.4:</label><select id="q5s4" name="q5s4" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q5s4_reason" name="q5s4_reason" placeholder="Reason..."></textarea>
+        <div class="sub-question"><label for="q5s5">Standard 5.5:</label><select id="q5s5" name="q5s5" onchange="handleSubQuestionChange(this)"><option>Standard not met</option><option>Standard met</option><option>Area for improvement</option><option>Good practice</option><option>Excellent practice</option><option>Standard not inspected</option></select></div><textarea id="q5s5_reason" name="q5s5_reason" placeholder="Reason..."></textarea>
+      </details>
+
+      <button type="submit" class="submit-btn">Save</button>
+    </form>
+  </div>
+  <script>
+    function handleCheckboxClick(checkbox) {
+      if (checkbox.checked) {
+        const parentElement = checkbox.parentElement.parentElement.parentElement;
+        const selectElements = parentElement.querySelectorAll('select.summary-status, select[id^="q"]');
+        const textareaElements = parentElement.querySelectorAll('textarea');
+        const desiredValue = 'Standard not inspected';
+
+        selectElements.forEach(selectElement => {
+          selectElement.value = desiredValue;
+        });
+        textareaElements.forEach(t=>{
+          t.value = '';
+        });
+        // Remove not-met class if any
+        const subQuestions = parentElement.querySelectorAll('.sub-question');
+        const textareas = parentElement.querySelectorAll('textarea');
+        subQuestions.forEach(sq => sq.classList.remove('not-met'));
+        textareas.forEach(ta => ta.classList.remove('not-met'));
+      }
+    }
+
+    function toggleEdit(button) {
+      const input = button.previousElementSibling;
+      if (input.hasAttribute('readonly')) {
+        input.removeAttribute('readonly');
+        input.focus();
+        button.textContent = '💾';
+      } else {
+        input.setAttribute('readonly', true);
+        button.textContent = '✏️';
+      }
+    }
+
+    function handleSubQuestionChange(select) {
+      const subQuestionDiv = select.parentElement;
+      const textarea = subQuestionDiv.nextElementSibling;
+      if (select.value === 'Standard not met') {
+        subQuestionDiv.classList.add('not-met');
+        if (textarea && textarea.tagName === 'TEXTAREA') {
+          textarea.classList.add('not-met');
+        }
+      } else {
+        subQuestionDiv.classList.remove('not-met');
+        if (textarea && textarea.tagName === 'TEXTAREA') {
+          textarea.classList.remove('not-met');
+        }
+      }
+    }
+
+    // Optional: handle summary dropdown changes if needed
+    function handleSummaryStatusChange(select) {
+      // You can add logic here if you want to do something when summary dropdown changes
+    }
+  </script>
 </body>
 </html>
- 
+</content>
+</create_file>
